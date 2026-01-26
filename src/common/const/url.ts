@@ -1,0 +1,1 @@
+export const baseUrl = "https://zenquotes.io/api/quotes";
