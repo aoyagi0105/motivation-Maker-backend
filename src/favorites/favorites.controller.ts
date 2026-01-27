@@ -1,4 +1,4 @@
-import { Controller, Post, UseGuards, Request } from '@nestjs/common';
+import { Controller, Post, UseGuards, Request, Body } from '@nestjs/common';
 import { FavoritesService } from './favorites.service';
 import { AccessTokenGuard } from 'src/auth/guard/bearer-token.guard';
 
@@ -6,9 +6,13 @@ import { AccessTokenGuard } from 'src/auth/guard/bearer-token.guard';
 export class FavoritesController {
   constructor(private readonly favoritesService: FavoritesService) { }
 
-  @Post()
+  @Post('/toggle')
   @UseGuards(AccessTokenGuard)
-  postToggleFavorite(@Request() req: any, motivationId: number) {
-    this.favoritesService.toggleFavorite(req.user.id, motivationId)
+  async postToggleFavorite(
+    @Request() req: any,
+    @Body('motivationId') motivationId: number
+  ) {
+    const test = await this.favoritesService.toggleFavorite(req.user.id, motivationId);
+    return test;
   }
 }

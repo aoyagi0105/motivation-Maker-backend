@@ -10,9 +10,9 @@ export class FavoritesService {
         private readonly userRepository: Repository<UsersModel>
     ) { }
 
-    async toggleFavorite(userId: string, motivationId: number) {
+    async toggleFavorite(userId: number, motivationId: number) {
         const user = await this.userRepository.findOne({
-            where: { userId },
+            where: { id: userId },
             relations: { favoriteMotivationIds: true }
         })
 
@@ -23,13 +23,15 @@ export class FavoritesService {
         const already = user.favoriteMotivationIds?.some(m => m.id === motivationId);
 
         if (already) {
-            return await this.removeFavorite(userId, motivationId);
+            await this.removeFavorite(userId, motivationId);
         } else {
-            return await this.addFavorite(userId, motivationId);
+            await this.addFavorite(userId, motivationId);
         }
+
+        return !already;
     }
 
-    async removeFavorite(userId: string, motivationId: number) {
+    async removeFavorite(userId: number, motivationId: number) {
         await this.userRepository
             .createQueryBuilder()
             .relation(UsersModel, 'favoriteMotivationIds')
@@ -37,7 +39,7 @@ export class FavoritesService {
             .remove(motivationId)
     }
 
-    async addFavorite(userId: string, motivationId: number) {
+    async addFavorite(userId: number, motivationId: number) {
         await this.userRepository
             .createQueryBuilder()
             .relation(UsersModel, 'favoriteMotivationIds')

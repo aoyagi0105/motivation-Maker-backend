@@ -23,7 +23,6 @@ export class MotivationController {
     @Query('lastMotivationId', ParseIntPipe) lastMotivationId: number,
     @Request() req,
   ) {
-    console.log('lastMotivationId: ', lastMotivationId);
     const nextData = await this.motivationService.getNextMotivation(lastMotivationId, req.user);
     const isFavored = this.motivationService.getIsFavored(req.user, lastMotivationId)
 

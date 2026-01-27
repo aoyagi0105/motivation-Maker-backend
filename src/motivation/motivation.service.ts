@@ -56,7 +56,6 @@ export class MotivationService {
             })
         }
         this.userService.updateLastMotivationId(user, lastMotivationId);
-        console.log('nextData: ', nextData);
         return nextData;
     }
 
