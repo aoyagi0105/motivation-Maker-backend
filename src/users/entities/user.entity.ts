@@ -22,7 +22,7 @@ export class UsersModel extends baseModel {
     password: string;
 
     @Column({
-        default: 'en'
+        default: 'en-US'
     })
     @IsString()
     language: string;
@@ -35,5 +35,5 @@ export class UsersModel extends baseModel {
 
     @ManyToMany(() => MotivationModel, (favoriteMotivationId) => favoriteMotivationId.users)
     @JoinTable()
-    favoriteMotivationIds: MotivationModel[];
+    favoriteMotivationIds: number[];
 }

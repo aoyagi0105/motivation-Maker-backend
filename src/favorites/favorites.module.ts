@@ -5,12 +5,14 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModel } from 'src/users/entities/user.entity';
 import { JwtModule } from '@nestjs/jwt';
 import { UsersModule } from 'src/users/users.module';
+import { MotivationModule } from 'src/motivation/motivation.module';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([UsersModel]),
     JwtModule.register({}),
-    UsersModule
+    UsersModule,
+    MotivationModule
   ],
   controllers: [FavoritesController],
   providers: [FavoritesService],

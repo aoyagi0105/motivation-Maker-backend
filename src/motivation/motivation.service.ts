@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { baseUrl } from 'src/common/const/url';
+import { motivationUrl } from 'src/common/const/url';
 import { MotivationModel } from './entity/motivations.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -24,7 +24,7 @@ export class MotivationService {
     }
 
     async getMotivationData() {
-        const response = await fetch(baseUrl);
+        const response = await fetch(motivationUrl);
         var data = await response.json();
         return data;
     }
@@ -40,7 +40,7 @@ export class MotivationService {
         return data;
     }
 
-    async getNextMotivation(lastMotivationId: number, user: UsersModel) {
+    async getNextMotivation(lastMotivationId: number, user: UsersModel, isMotivationScreen: boolean) {
         const nextData = await this.motivationRepository.find({
             where: {
                 id: lastMotivationId
@@ -55,12 +55,15 @@ export class MotivationService {
                 }
             })
         }
-        this.userService.updateLastMotivationId(user, lastMotivationId);
+        if (isMotivationScreen) {
+            this.userService.updateLastMotivationId(user, lastMotivationId);
+        }
         return nextData;
     }
 
     getIsFavored(user: UsersModel, motivationId: number) {
-        const already = user.favoriteMotivationIds?.some(m => m.id === motivationId);
+        const already = user.favoriteMotivationIds?.some(m => m === motivationId);
+
         return already ? true : false;
     }
 }

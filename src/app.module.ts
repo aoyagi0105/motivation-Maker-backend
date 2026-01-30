@@ -10,6 +10,7 @@ import { UsersModel } from './users/entities/user.entity';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import { FavoritesModule } from './favorites/favorites.module';
+import { TranslationModule } from './translation/translation.module';
 
 @Module({
   imports: [MotivationModule,
@@ -33,7 +34,8 @@ import { FavoritesModule } from './favorites/favorites.module';
     }),
     UsersModule,
     AuthModule,
-    FavoritesModule
+    FavoritesModule,
+    TranslationModule
   ],
   controllers: [AppController],
   providers: [AppService],

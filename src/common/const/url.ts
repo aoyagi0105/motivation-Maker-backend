@@ -1,1 +1,1 @@
-export const baseUrl = "https://zenquotes.io/api/quotes";
+export const motivationUrl = "https://zenquotes.io/api/quotes";

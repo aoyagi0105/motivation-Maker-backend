@@ -5,6 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { MotivationModel } from './entity/motivations.entity';
 import { JwtModule } from '@nestjs/jwt';
 import { UsersModule } from 'src/users/users.module';
+import { TranslationModule } from 'src/translation/translation.module';
 
 @Module({
   imports: [
@@ -12,9 +13,11 @@ import { UsersModule } from 'src/users/users.module';
     TypeOrmModule.forFeature([
       MotivationModel
     ]),
-    UsersModule
+    UsersModule,
+    TranslationModule
   ],
   controllers: [MotivationController],
   providers: [MotivationService],
+  exports: [MotivationService]
 })
 export class MotivationModule { }

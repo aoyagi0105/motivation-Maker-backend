@@ -1,49 +1,49 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { MotivationService } from 'src/motivation/motivation.service';
 import { UsersModel } from 'src/users/entities/user.entity';
+import { UsersService } from 'src/users/users.service';
 import { Repository } from 'typeorm';
 
 @Injectable()
 export class FavoritesService {
     constructor(
         @InjectRepository(UsersModel)
-        private readonly userRepository: Repository<UsersModel>
+        private readonly userRepository: Repository<UsersModel>,
+        private readonly usersService: UsersService,
+        private readonly motivationService: MotivationService
     ) { }
 
-    async toggleFavorite(userId: number, motivationId: number) {
-        const user = await this.userRepository.findOne({
-            where: { id: userId },
-            relations: { favoriteMotivationIds: true }
-        })
-
-        if (!user) {
-            throw new NotFoundException('유저가 존재하지 않습니다');
-        }
-
-        const already = user.favoriteMotivationIds?.some(m => m.id === motivationId);
+    async toggleFavorite(user: UsersModel, motivationId: number) {
+        const already = this.motivationService.getIsFavored(user, motivationId);
 
         if (already) {
-            await this.removeFavorite(userId, motivationId);
+            await this.removeFavorite(user.id, motivationId);
         } else {
-            await this.addFavorite(userId, motivationId);
+            await this.addFavorite(user.id, motivationId);
         }
 
         return !already;
     }
 
-    async removeFavorite(userId: number, motivationId: number) {
+    async removeFavorite(id: number, motivationId: number) {
         await this.userRepository
             .createQueryBuilder()
             .relation(UsersModel, 'favoriteMotivationIds')
-            .of(userId)
+            .of(id)
             .remove(motivationId)
     }
 
-    async addFavorite(userId: number, motivationId: number) {
+    async addFavorite(id: number, motivationId: number) {
         await this.userRepository
             .createQueryBuilder()
             .relation(UsersModel, 'favoriteMotivationIds')
-            .of(userId)
+            .of(id)
             .add(motivationId)
+    }
+
+    async getFavoriteMotivationIds(user: UsersModel) {
+        const userInfo = await this.usersService.findUserById(user);
+        return userInfo?.favoriteMotivationIds;
     }
 }

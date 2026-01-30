@@ -66,6 +66,9 @@ export class UsersService {
     const user = await this.usersRepository.findOne({
       where: {
         userId: userInfo.userId
+      },
+      loadRelationIds: {
+        relations: ['favoriteMotivationIds']
       }
     });
     return user;
