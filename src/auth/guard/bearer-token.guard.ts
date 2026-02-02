@@ -2,6 +2,7 @@ import { CanActivate, ExecutionContext, Injectable, UnauthorizedException } from
 import { JwtService } from "@nestjs/jwt";
 import { UsersService } from "src/users/users.service";
 import { ConfigService } from '@nestjs/config';
+import { JWT_SECRET } from "src/common/const/var";
 
 @Injectable()
 export class BearerTokenGuard implements CanActivate {
@@ -20,7 +21,7 @@ export class BearerTokenGuard implements CanActivate {
 
         try {
             const payload = this.jwtService.verify(token, {
-                secret: this.configService.get<string>('JWT_SCRET_KEY')
+                secret: this.configService.get<string>(JWT_SECRET)
             });
             const user = await this.userService.findUserById({ userId: payload.userId });
             req.tokenType = payload.token;

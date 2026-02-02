@@ -7,6 +7,7 @@ import * as bcrypt from "bcrypt";
 import { AuthService } from 'src/auth/auth.service';
 import { LoginUserDto } from './dto/login-user.dto';
 import { ConfigService } from '@nestjs/config';
+import { ENV_HASH_ROUNDS_KEY } from 'src/common/const/var';
 
 @Injectable()
 export class UsersService {
@@ -20,7 +21,7 @@ export class UsersService {
 
 
   async createUser(createUserDto: CreateUserDto) {
-    const rounds = this.configService.get<number>('ENV_HASH_ROUNDS_KEY');
+    const rounds = this.configService.get<number>(ENV_HASH_ROUNDS_KEY);
     if (!rounds) {
       throw new Error('ENV_HASH_ROUNDS_KEY가 정의되지않았습니다')
     }

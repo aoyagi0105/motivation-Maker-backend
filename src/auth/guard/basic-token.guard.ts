@@ -1,6 +1,7 @@
 import { CanActivate, ExecutionContext, UnauthorizedException } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { JwtService } from "@nestjs/jwt";
+import { JWT_SECRET } from "src/common/const/var";
 
 export class BasicTokenGuard implements CanActivate {
     constructor(
@@ -17,7 +18,7 @@ export class BasicTokenGuard implements CanActivate {
 
         try {
             this.jwtService.verify(token, {
-                secret: this.configService.get<string>('JWT_SCRET_KEY')
+                secret: this.configService.get<string>(JWT_SECRET)
             })
             return true;
         } catch {
