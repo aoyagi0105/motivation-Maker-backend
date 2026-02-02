@@ -32,12 +32,12 @@ export class UsersService {
     )
     const userID = await this.findUserById(createUserDto);
     if (userID) {
-      throw new ConflictException('아이디가 이미 존재합니다')
+      throw new ConflictException('ID is duplicated')
     }
 
     const nickName = await this.findUserByNickName(createUserDto);
     if (nickName) {
-      throw new ConflictException('아이디가 이미 존재합니다')
+      throw new ConflictException('Nickname is duplicated')
     }
 
     const user = await this.usersRepository.save({
@@ -52,12 +52,12 @@ export class UsersService {
   async loginUser(loginUserDto: LoginUserDto) {
     const user = await this.findUserById(loginUserDto);
     if (!user) {
-      throw new UnauthorizedException('id가 틀렸습니다')
+      throw new UnauthorizedException('incorrect ID')
     }
 
     const passwordOK = await bcrypt.compare(loginUserDto.password, user.password);
     if (!passwordOK) {
-      throw new UnauthorizedException('pw가 틀렸습니다')
+      throw new UnauthorizedException('inccorrect PW')
     }
 
     return this.authService.getAccessAndRefreshToken(user);
