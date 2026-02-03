@@ -53,7 +53,7 @@ export class RefreshTokenGuard extends BearerTokenGuard {
     async canActivate(context: ExecutionContext): Promise<boolean> {
         await super.canActivate(context);
         const req = context.switchToHttp().getRequest();
-        if (req.type !== 'refresh') {
+        if (req.tokenType !== 'refresh') {
             throw new UnauthorizedException('refresh token 이 아닙니다')
         }
         return true;
