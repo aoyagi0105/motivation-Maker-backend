@@ -31,7 +31,7 @@ export class AuthService {
             payload,
             {
                 secret: secretKey,
-                expiresIn: isRefresh ? 20 : 10
+                expiresIn: isRefresh ? 36000 : 3600
             }
         )
     }
