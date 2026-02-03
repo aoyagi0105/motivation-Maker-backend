@@ -18,7 +18,7 @@ export class BearerTokenGuard implements CanActivate {
         if (!auth) {
             throw new UnauthorizedException('토큰이 없습니다');
         }
-        const [type, token] = auth.split(' ')[1];
+        const [type, token] = auth.split(' ');
         if (type !== 'Bearer' || !token) {
             throw new UnauthorizedException('Bearer 토큰 형식이 아닙니다');
         }
