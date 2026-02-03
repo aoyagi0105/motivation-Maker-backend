@@ -6,11 +6,5 @@ import { TranslationService } from './translation.service';
 export class TranslationController {
   constructor(private readonly translationService: TranslationService) { }
 
-  @Get()
-  async getTranslation(
-    @Query('phrase') phrase: string,
-    @Query('targetLang') targetLang: string
-  ) {
-    return await this.translationService.getTranslation(phrase, targetLang)
-  }
+
 }
