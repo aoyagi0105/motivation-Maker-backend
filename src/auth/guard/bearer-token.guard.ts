@@ -14,9 +14,13 @@ export class BearerTokenGuard implements CanActivate {
 
     async canActivate(context: ExecutionContext): Promise<boolean> {
         const req = context.switchToHttp().getRequest();
-        const token = req.headers.authorization.split(' ')[1];
-        if (!token) {
-            throw new UnauthorizedException('토큰이 없습니다')
+        const auth = req.headers.authorization;
+        if (!auth) {
+            throw new UnauthorizedException('토큰이 없습니다');
+        }
+        const [type, token] = auth.split(' ')[1];
+        if (type !== 'Bearer' || !token) {
+            throw new UnauthorizedException('Bearer 토큰 형식이 아닙니다');
         }
 
         try {
