@@ -1,7 +1,8 @@
-import { Controller, Post, Body } from '@nestjs/common';
+import { Controller, Post, Body, Patch, UseGuards, Request } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { LoginUserDto } from './dto/login-user.dto';
+import { AccessTokenGuard } from 'src/auth/guard/bearer-token.guard';
 
 @Controller('users')
 export class UsersController {
@@ -32,5 +33,14 @@ export class UsersController {
       lastMotivationId: user?.lastMotivationId,
       user
     };
+  }
+
+  @Patch('changeLanguage')
+  @UseGuards(AccessTokenGuard)
+  async patchLanguage(
+    @Request() req,
+    @Body('language') language: string,
+  ) {
+    return await this.usersService.updateLanguage(req.user, language);
   }
 }

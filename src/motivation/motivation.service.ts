@@ -48,7 +48,7 @@ export class MotivationService {
         })
 
         if (!nextData) {
-            this.userService.updateLastMotivationId(user, 1);
+            await this.userService.updateLastMotivationId(user, 1);
             return await this.motivationRepository.find({
                 where: {
                     id: 1
@@ -56,7 +56,7 @@ export class MotivationService {
             })
         }
         if (isMotivationScreen) {
-            this.userService.updateLastMotivationId(user, lastMotivationId);
+            await this.userService.updateLastMotivationId(user, lastMotivationId);
         }
         return nextData;
     }

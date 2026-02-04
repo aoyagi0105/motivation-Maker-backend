@@ -43,7 +43,8 @@ export class UsersService {
     const user = await this.usersRepository.save({
       userId: createUserDto.userId,
       password: hash,
-      nickName: createUserDto.nickName
+      nickName: createUserDto.nickName,
+      language: createUserDto.language,
     });
 
     return this.authService.getAccessAndRefreshToken(user);
@@ -86,6 +87,10 @@ export class UsersService {
 
   async updateLastMotivationId(userInfo: Pick<UsersModel, 'userId'>, lastMotivationId: number) {
     await this.usersRepository.update({ userId: userInfo.userId }, { lastMotivationId });
+  }
+
+  async updateLanguage(userInfo: Pick<UsersModel, 'userId'>, language: string) {
+    return await this.usersRepository.update({ userId: userInfo.userId }, { language })
   }
 
 }
