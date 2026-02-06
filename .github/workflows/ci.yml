@@ -18,8 +18,11 @@ jobs:
           node-version: "20"
           cache: "npm"
 
+      - name: Enable Corepack
+        run: corepack enable
+
       - name: Install deps
-        run: npm ci
+        run: yarn install --frozen-lockfile
 
       - name: Lint
         run: npm run lint --if-present
