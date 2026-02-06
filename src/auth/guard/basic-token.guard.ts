@@ -9,7 +9,7 @@ export class BasicTokenGuard implements CanActivate {
         private readonly configService: ConfigService,
     ) { }
 
-    async canActivate(context: ExecutionContext): Promise<boolean> {
+    canActivate(context: ExecutionContext): boolean {
         const req = context.switchToHttp().getRequest();
         const token = req.headers.authorization.split(' ')[1];
         if (!token) {

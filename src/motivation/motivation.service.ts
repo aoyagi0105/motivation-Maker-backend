@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { motivationUrl } from 'src/common/const/url';
 import { MotivationModel } from './entity/motivations.entity';
 import { Repository } from 'typeorm';

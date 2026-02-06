@@ -1,6 +1,5 @@
-import { Controller, Get, Param, ParseIntPipe, Post, Query, UseGuards, Request, DefaultValuePipe, ParseBoolPipe } from '@nestjs/common';
+import { Controller, Get, ParseIntPipe, Post, Query, UseGuards, Request, DefaultValuePipe, ParseBoolPipe } from '@nestjs/common';
 import { MotivationService } from './motivation.service';
-import { BasicTokenGuard } from 'src/auth/guard/basic-token.guard';
 import { AccessTokenGuard } from 'src/auth/guard/bearer-token.guard';
 import { TranslationService } from 'src/translation/translation.service';
 
