@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Patch, UseGuards, Request } from '@nestjs/common';
+import { Controller, Post, Body, Patch, UseGuards, Request, HttpCode, HttpStatus } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { LoginUserDto } from './dto/login-user.dto';
@@ -22,6 +22,7 @@ export class UsersController {
   }
 
   @Post('login')
+  @HttpCode(HttpStatus.OK)
   async postLogin(
     @Body() loginUserDto: LoginUserDto
   ) {

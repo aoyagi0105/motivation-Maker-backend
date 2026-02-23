@@ -62,7 +62,7 @@ export class MotivationService {
     }
 
     getIsFavored(user: UsersModel, motivationId: number) {
-        const already = user.favoriteMotivationIds?.some(m => m === motivationId);
+        const already = user.favoriteMotivationIds?.some(m => m === Number(motivationId));
 
         return already ? true : false;
     }
