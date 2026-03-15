@@ -1,12 +1,11 @@
 # motivation-Maker-backend
-motivation-Maker-backend는 모바일 애플리케이션 motivation-Maker를 위한 REST API 서버입니다.
-사용자 인증, 모티베이션 문구 조회, 즐겨찾기 관리, 사용자 언어 설정 기반 번역 기능을 제공합니다.
+motivation-Maker-backend is a RESTful API server developed to power the motivation-Maker mobile application. It provides essential services including user authentication, motivational quote retrieval, favorites management, and automated translation based on user language preferences.
 
 ## Features
-- JWT 기반 로그인, 회원가입 
-- 모티베이션 문구 조회
-- 즐겨찾기 추가 / 제거
-- 사용자 언어 설정 기반 번역 기능
+- Secure Login and Sign-up using JWT (JSON Web Tokens)
+- Fetch and browse curated motivational quotes
+- Add or remove quotes from user-specific favorites
+- Multi-language support and translation logic based on user profile settings
 
 ## Tech Stack
 - Backend: NestJS, TypeORM
@@ -15,14 +14,17 @@ motivation-Maker-backend는 모바일 애플리케이션 motivation-Maker를 위
 - Language: TypeScript
 
 ## Architecture Overview
- - Auth Module: 회원가입 / 로그인 / 인증 처리
- - User Module: 사용자 정보 및 언어 설정 관리
- - Motivation Module: 모티베이션 문구 조회
- - Favorite Module: 사용자별 즐겨찾기 관리
- - Translation Module: 문구 번역 기능
+The server follows the modular architecture of NestJS, ensuring high maintainability and scalability. Each feature is encapsulated within its own module, following the Controller / Service / Entity / DTO pattern.
 
-각 모듈은 NestJS의 Module 단위로 분리되어 있으며,
-Controller / Service / Entity / DTO 구조로 작성했습니다.
+Auth Module: Handles registration, login, and token issuance/validation.
+
+User Module: Manages user profiles and language preferences.
+
+Motivation Module: Handles logic for retrieving and updating motivational quotes.
+
+Favorite Module: Manages the relationship between users and their saved quotes.
+
+Translation Module: Decoupled service for handling multi-language quote delivery.
 
 ## Environment Variables
  - `ENV_HASH_ROUNDS_KEY`: bcrypt hash rounds
@@ -32,9 +34,9 @@ Controller / Service / Entity / DTO 구조로 작성했습니다.
 Create a `.env` file based on `.env.example`.
 
 ## What I Focused On
-- 프론트엔드와 분리된 REST API 설계
-- 사용자별 상태(즐겨찾기, 언어 설정)를 서버 기준으로 관리
-- 외부 번역 API 의존성을 별도 모듈로 분리
+- Designed a clean and predictable API structure decoupled from the frontend.
+- Centralized user states (Favorites, Language settings) on the server to ensure data consistency across devices.
+- Decoupled external translation API dependencies into a separate module for easier maintenance and potential future provider swaps.
 
 ## Related Repositories
 - Frontend: https://github.com/aoyagi0105/motivation-Maker.git

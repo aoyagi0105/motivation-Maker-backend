@@ -29,6 +29,7 @@ export class MotivationController {
     @Query('language') language: string,
   ) {
     const nextData = await this.motivationService.getNextMotivation(lastMotivationId, req.user, isMotivationScreen);
+    console.log('nextData[0]', nextData[0]);
     const isFavored = this.motivationService.getIsFavored(req.user, lastMotivationId);
     const author = await this.translationService.getTranslation(nextData[0].author, language);
     const text = await this.translationService.getTranslation(nextData[0].text, language);
