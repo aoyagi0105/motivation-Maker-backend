@@ -1,3 +1,4 @@
+[한국어](./README.kr.md) | [日本語](./README.jp.md)
 # motivation-Maker-backend
 motivation-Maker-backend is a RESTful API server developed to power the motivation-Maker mobile application. It provides essential services including user authentication, motivational quote retrieval, favorites management, and automated translation based on user language preferences.
 
