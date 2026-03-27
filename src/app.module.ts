@@ -29,6 +29,9 @@ import { TranslationModule } from './translation/translation.module';
 
       autoLoadEntities: true,
       synchronize: process.env.NODE_ENV !== 'production',
+      ssl: {
+        rejectUnauthorized: false
+      }
     }),
     UsersModule,
     AuthModule,
